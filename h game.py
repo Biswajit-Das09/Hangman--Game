@@ -3,7 +3,6 @@ from tkinter import messagebox
 from tkinter.font import Font
 import random
 
-# List of words for the Hangman game
 words = [
     'PYTHON', 'TKINTER', 'HANGMAN', 'PROGRAMMING', 'COMPUTER',
     'ASTROLOGY', 'PYRAMID', 'VORTEX', 'ZENITH', 'JAZZ',
@@ -19,26 +18,20 @@ class HangmanGame:
         self.root = root
         self.root.title('Hangman Game')
 
-        # Set up the window size
         self.root.geometry('800x800')
 
-        # Define the font and colors
         self.font = Font(family='Comic Sans MS', size=20, weight='bold')
-        self.button_color = '#FF69B4'  # Dark pink color
+        self.button_color = '#FF69B4' 
 
-        # Load cloud image
         self.cloud_photo = self.load_image('cloud.gif')
 
-        # Initialize game variables
         self.word = random.choice(words)
         self.guessed_letters = set()
         self.max_attempts = 6
         self.attempts = 0
 
-        # Create a central frame for game elements
         self.create_widgets()
-
-        # Create a footer
+        
         self.create_footer()
 
     def load_image(self, image_path):
@@ -51,47 +44,36 @@ class HangmanGame:
             return None
 
     def create_widgets(self):
-        # Create a central frame for the game elements
         self.center_frame = tk.Frame(self.root, bg='purple', padx=20, pady=20)
         self.center_frame.place(relx=0.5, rely=0.5, anchor='center', relwidth=0.8, relheight=0.8)
-
-        # Title label
+        
         self.title_label = tk.Label(self.center_frame, text='Hangman Game', font=self.font, bg='purple', fg='white')
         self.title_label.pack(pady=10)
 
-        # Word display
         self.word_label = tk.Label(self.center_frame, text=self.get_display_word(), font=self.font, bg='purple', fg='white')
         self.word_label.pack(pady=20)
 
-        # Sticker display
         self.sticker_label = tk.Label(self.center_frame, text='', font=self.font, bg='purple', fg='white')
         self.sticker_label.pack(pady=10)
 
-        # Guessed letters display
         self.guessed_label = tk.Label(self.center_frame, text='Guessed Letters: ', font=self.font, bg='purple', fg='white')
         self.guessed_label.pack(pady=10)
 
-        # Input field
         self.guess_entry = tk.Entry(self.center_frame, font=self.font)
         self.guess_entry.pack(pady=10)
 
-        # Guess button
         self.guess_button = tk.Button(self.center_frame, text='Guess', command=self.guess, font=self.font, bg=self.button_color, fg='white')
         self.guess_button.pack(pady=10)
 
-        # Show missing letters button
         self.show_missing_button = tk.Button(self.center_frame, text='Show Missing Letters', command=self.show_missing_letters, font=self.font, bg=self.button_color, fg='white')
         self.show_missing_button.pack(pady=10)
 
-        # Reset button
         self.reset_button = tk.Button(self.center_frame, text='Reset', command=self.reset_game, font=self.font, bg='#FF1493', fg='white')
         self.reset_button.pack(pady=10)
 
-        # Display attempts left
         self.attempts_label = tk.Label(self.center_frame, text=f'Attempts left: {self.max_attempts}', font=self.font, bg='purple', fg='white')
         self.attempts_label.pack(pady=10)
 
-        # Add cloud stickers
         self.add_cloud_stickers()
 
     def create_footer(self):
